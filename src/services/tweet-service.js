@@ -1,20 +1,33 @@
 const mongoose = require('mongoose');
 
-const { TweetRepository} = require('../repository/index');
+const { TweetRepository, HashtagRepository} = require('../repository/index');
+
 
 class TweetService {
     constructor(){
         this.tweetRepository= new TweetRepository();
+        this.hashtagRepository = new HashtagRepository();
     }
 
     async create(data){
         const content = data.content;
-        const tags = content.match(/#[a-zA-Z0-1_]+/g);
-        tags = tags.map((tag) => tag.substring(1));
-        console.log(tags);
+        const tags = content.match(/#[a-zA-Z0-1_]+/g).map((tag) => tag.substring(1));
         const tweet = await this.tweetRepository.create(data);
+        let alreadyPresentTag = await this.hashtagRepository.findByName(tags);
+        let titleOfpresentags = alreadyPresentTag.map(tags => tags.title);
+        let newTags = tags.filter(tag => !titleOfpresentags.includes(tag));
+        console.log(newTags)
+        newTags = newTags.map(tag => 
+            {
+                  return {title :tag,tweets :[tweet.id]}
+            });
+        const response = await this.hashtagRepository.bulkCreate(newTags);
+        alreadyPresentTag.forEach((tag)=>{
+            tag.tweets.push(tweet.id);
+            tag.save();
+        })
         return tweet;
     }
 }
 
-module.exports = TweetRepository;
+module.exports = TweetService;
