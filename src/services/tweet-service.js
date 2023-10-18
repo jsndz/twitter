@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const { TweetRepository, HashtagRepository} = require('../repository/index');
+import { TweetRepository, HashtagRepository} from '../repository/index';
 
 
 class TweetService {
@@ -30,4 +30,4 @@ class TweetService {
     }
 }
 
-module.exports = TweetService;
+export default TweetService;
