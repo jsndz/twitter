@@ -1,4 +1,4 @@
-import Tweet from  '../models/tweet';
+import Tweet from  '../models/tweet.js';
 
 class TweetRepository{
     async create(data){
