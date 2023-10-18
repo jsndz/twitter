@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/tweet',createTweet);
 
-console.log(router);
+
 
 export default router;

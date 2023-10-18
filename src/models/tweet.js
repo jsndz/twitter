@@ -6,11 +6,15 @@ const tweetSchema = new mongoose.Schema({
         required:true,
         max:[250,'250 character Limit']
     },
+    likes:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Like'
+    }]
     
     
 },{timestamps:true});
  
 
-const tweet = mongoose.model('Tweet', tweetSchema);
+const Tweet = mongoose.model('Tweet', tweetSchema);
 
-export default tweet;
+export default Tweet;

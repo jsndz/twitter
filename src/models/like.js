@@ -4,13 +4,13 @@ const likeSchema = mongoose.Schema({
     onModel:{
         type:String,
         required:true,
-        enum:['tweet','comment']
+        enum:['Tweet','Comment']
     },
-    likable:{
+    likeable:[{
         type: mongoose.Schema.Types.ObjectId,
         required:true,
         refPath:'onModel'
-    },
+    }],
     user:{
         type: mongoose.Schema.Types.ObjectId,
         required:true,
@@ -18,6 +18,6 @@ const likeSchema = mongoose.Schema({
     }
 },{timestaps:true});
 
-const like = mongoose.model('Like', likeSchema);
+const Like = mongoose.model('Like', likeSchema);
 
 export default Like;
