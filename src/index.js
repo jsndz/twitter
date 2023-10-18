@@ -2,13 +2,23 @@ import express from 'express'
 
 import {connect}  from './config/database.js'
 
+import bodyParser from 'body-parser';
+
 const app = express();
 
-import TweetService from './services/tweet-service.js'
-app.listen(3000,  async ()=>{
-    console.log("server started at 3000");
-    await connect();
-    console.log("MongoDB connected");
-    let servic =new TweetService();
-    await servic.create({content:'#kaido vs #LUFfy'}) 
-});
+import apiRoute from './routes/index.js';
+function setupandstart() {
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+
+    app.use('/api',apiRoute);
+    
+    app.listen(3000,  async ()=>{
+        console.log("server started at 3000");
+        await connect();
+        console.log("MongoDB connected");
+        
+    
+    });
+}
+setupandstart()
