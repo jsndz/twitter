@@ -1,7 +1,7 @@
 import CrudRepository from "./crud-repository.js"
-import Comment from "../models/comments"
+import Comment from "../models/comments.js"
 
-class CommentRepository {
+class CommentRepository extends CrudRepository{
     constructor(){
         super(Comment)
     }
