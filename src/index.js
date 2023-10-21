@@ -20,13 +20,18 @@ import LikeService from './services/like-service.js';
         console.log("server started at 3000");
         await connect();
         console.log("MongoDB connected");
-        const usrrepo = new UserRepository();
-        const tweetRepo = new TweetRepository();
-
-        const tweets = await tweetRepo.getAll(0,10);
-        const users = await usrrepo.getAll();
-        const likeservice = new LikeService();
-        await likeservice.toggleLike(tweets[0].id, 'Tweet',users[0].id)
+        
+        
 
     
     });
+
+
+
+// const usrrepo = new UserRepository();
+        // const tweetRepo = new TweetRepository();
+
+        // const tweets = await tweetRepo.getAll(0,10);
+        // const users = await usrrepo.getAll();
+        // const likeservice = new LikeService();
+        // await likeservice.toggleLike(tweets[0].id, 'Tweet',users[0].id);
