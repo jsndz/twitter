@@ -1,5 +1,5 @@
 import multer from "multer";
-import multers3 from "multer-s3"
+import multerS3 from "multer-s3"
 import aws from "aws-sdk";
 import dotenv from "dotenv";
 
@@ -14,16 +14,18 @@ awssdk.config.update({
 const s3 = new aws.S3();
 
 const upload= multer({
-    s3: s3,
-    bucket: process.env.BUCKET_NAME,
-    acl:'public-read',
-    metadata: function (req, file, cb) {
-      cb(null, {fieldName: file.fieldname});
-    },
+    storage:multerS3({
+        s3: s3,
+        bucket: process.env.BUCKET_NAME,
+        acl:'public-read',
+        metadata: function (req, file, cb) {
+        cb(null, {fieldName: file.fieldname});
+        },
 
-    key: function (req, file, cb) {
-        cb(null, Date.now().toString())
-      }
+        key: function (req, file, cb) {
+            cb(null, Date.now().toString())
+        }
+    })
 });
 
 export default upload;
