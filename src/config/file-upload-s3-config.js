@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-awssdk.config.update({
+aws.config.update({
     region: process.env.AWS_REGION,
     secreateAccessKey:process.env.AWS_SECRET_ACCESS_KEY,
     accessKeyId: process.env.ACCESS_KEY_ID
