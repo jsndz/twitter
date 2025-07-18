@@ -70,7 +70,7 @@ export default function Navigation() {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="w-full justify-start p-4 h-auto">
               <Avatar className="h-10 w-10 mr-3">
-                <AvatarImage src={user.avatar} alt={user.username} />
+                <AvatarImage src={user.avatar} alt={user.email} />
                 <AvatarFallback>
                   {user.username[0].toUpperCase()}
                 </AvatarFallback>
