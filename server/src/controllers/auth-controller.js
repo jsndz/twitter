@@ -9,7 +9,6 @@ export const signup = async (req, res) => {
       password: req.body.password,
       username: req.body.name,
     });
-    console.log(res);
 
     return res.status(201).json({
       data: response,
@@ -18,7 +17,6 @@ export const signup = async (req, res) => {
       err: {},
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       data: {},
       message: "coulnt create  new user",

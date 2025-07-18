@@ -33,7 +33,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    // Check for existing session
     const token = localStorage.getItem("auth_token");
     const userData = localStorage.getItem("user_data");
 
@@ -56,15 +55,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email: email,
         password: password,
       });
-      console.log(response);
 
-      localStorage.setItem("auth_token", response.data.data.token);
       localStorage.setItem(
         "user_data",
         JSON.stringify(response.data.data.user)
       );
-      setUser(response.data.user);
-      toast.success("Welcome back!");
+      localStorage.setItem("auth_token", response.data.data.token);
+
+      setUser(response.data.data.user);
+      const token = localStorage.getItem("auth_token");
+      const userData = localStorage.getItem("user_data");
+      toast.success(
+        `Welcome back, ${response.data.data.user.username || "User"}!`
+      );
       return true;
     } catch (error) {
       toast.error("Login failed. Please try again.");

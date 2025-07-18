@@ -38,6 +38,7 @@ export default function Home() {
     try {
       setIsLoadingTweets(true);
       const fetchedTweets = await getTweets();
+
       setTweets(fetchedTweets);
     } catch (error) {
       console.error("Failed to load tweets:", error);
