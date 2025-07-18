@@ -9,7 +9,6 @@ class LikeService {
   async togglelike(modelId, modelType, userId) {
     if (modelType == "Tweet") {
       var likeable = await this.tweetRepository.find(modelId);
-      console.log(likeable);
     } else if (modelType == "Comment") {
       // todo
     } else {
@@ -31,9 +30,7 @@ class LikeService {
         onModel: modelType,
         likeable: modelId,
       });
-      console.log(newLike);
-      console.log("likable", likeable);
-      console.log("me", likes);
+
       likeable.likes.push(newLike);
       await likeable.save();
       var isAdded = true;

@@ -4,22 +4,25 @@ import bcrypt from "bcrypt";
 
 import jwt from "jsonwebtoken";
 
+import { JWT_SECRET } from "../config/config.js";
+
 const userSchema = mongoose.Schema(
   {
     email: {
       type: String,
+      unique: true,
       required: true,
     },
     password: {
       type: String,
       required: true,
     },
-    name: {
+    username: {
       type: String,
-      required: true,
+      unique: true,
     },
   },
-  { timestaps: true }
+  { timestamps: true }
 );
 
 userSchema.pre("save", function (next) {
@@ -34,16 +37,15 @@ userSchema.methods.comparePasswords = function compare(password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-userSchema.methods.genJwt = function generate() {
+userSchema.methods.genJwt = function () {
   return jwt.sign(
     {
       id: this._id,
       email: this.email,
+      username: this.username,
     },
-    "twitter_secrete",
-    {
-      expiresIn: "1h",
-    }
+    JWT_SECRET,
+    { expiresIn: "1h" }
   );
 };
 const User = mongoose.model("User", userSchema);
